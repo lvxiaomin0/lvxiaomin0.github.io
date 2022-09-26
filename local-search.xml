@@ -4,6 +4,32 @@
   
   
   <entry>
+    <title>WebFlux初体验</title>
+    <link href="/2022/09/26/WebFlux%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
+    <url>/2022/09/26/WebFlux%E5%88%9D%E4%BD%93%E9%AA%8C/</url>
+    
+    <content type="html"><![CDATA[<h2 id="WebFlux"><a href="#WebFlux" class="headerlink" title="WebFlux"></a>WebFlux</h2><h3 id="spring-webflux-Reactor-Netty-响应式的、异步非阻塞的"><a href="#spring-webflux-Reactor-Netty-响应式的、异步非阻塞的" class="headerlink" title="spring-webflux + Reactor + Netty 响应式的、异步非阻塞的"></a>spring-webflux + Reactor + Netty 响应式的、异步非阻塞的</h3><p>处理请求写法不同</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloController</span> &#123;<br><br>    <span class="hljs-meta">@GetMapping(&quot;/hello&quot;)</span><br>    <span class="hljs-keyword">public</span> Mono&lt;String&gt; <span class="hljs-title function_">hello</span><span class="hljs-params">()</span> &#123;   <span class="hljs-comment">// 【改】返回类型为Mono&lt;String&gt;</span><br>        <span class="hljs-keyword">return</span> Mono.just(<span class="hljs-string">&quot;Welcome to reactive world ~&quot;</span>);     <span class="hljs-comment">// 【改】使用Mono.just生成响应式数据</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>WebFlux的函数式开发模式中，我们用<code>HandlerFunction</code>和<code>RouterFunction</code>来实现 对应MVC中的Controller 和RequestMapping</p><ul><li><code>HandlerFunction</code>相当于<code>Controller</code>中的具体处理方法，输入为请求，输出为装在<code>Mono</code>中的响应：</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Mono&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ServerResponse</span>&gt; handle(ServerRequest request);<br></code></pre></td></tr></table></figure><ul><li><code>RouterFunction</code>，顾名思义，路由，相当于<code>@RequestMapping</code>，用来判断什么样的url映射到那个具体的<code>HandlerFunction</code>，输入为请求，输出为装在Mono里边的<code>Handlerfunction</code>：</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Mono&lt;HandlerFunction&lt;T&gt;&gt; <span class="hljs-title function_">route</span><span class="hljs-params">(ServerRequest request)</span>;<br></code></pre></td></tr></table></figure><p>我们看到，在WebFlux中，请求和响应不再是WebMVC中的ServletRequest和ServletResponse，而是ServerRequest和ServerResponse。后者是在响应式编程中使用的接口，它们提供了对非阻塞和回压特性的支持，以及Http消息体与响应式类型Mono和Flux的转换方法。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hexo 搭建过程 Window &amp; Linux</title>
+    <link href="/2022/09/25/Hexo-%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8/"/>
+    <url>/2022/09/25/Hexo-%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8/</url>
+    
+    <content type="html"><![CDATA[<h5 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h5><p>安装 Hexo 相当简单，只需要先安装下列应用程序即可：</p><pre><code class="hljs">1.Node.js (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本) 2.Git   windows 安装较简单不过多叙述  Linux 命令安装 Node.js  apt-get update  sudo apt-get install nodejs  命令安装 Git  sudo apt-get install git</code></pre><h5 id="Hexo添加hexo-admin组件"><a href="#Hexo添加hexo-admin组件" class="headerlink" title="Hexo添加hexo-admin组件"></a>Hexo添加hexo-admin组件</h5><pre><code class="hljs"> 插件安装 首先进入hexo创建的博客项目的根目录下，执行 npm install --save hexo-admin运行下列命令启动 hexo server -d打开 http://localhost:4000/admin/ 就可以访问到hexo-admin管理页面了。 密码保护 打开setting，点击Setup authentification here输入用户名，密码，密钥，下面会自动生成配置文件，复制加在hexo根目录下的_config.yml中：admin:  username: ming  password_hash: .....  secret: ....</code></pre><h5 id="Hexo-服务后台运行"><a href="#Hexo-服务后台运行" class="headerlink" title="Hexo 服务后台运行"></a>Hexo 服务后台运行</h5><p> 安装pm2 </p><pre><code class="hljs">npm  install -g pm2 </code></pre><p> 在博客根目录下面创建一个hexo_run.js </p><pre><code class="hljs">const &#123; exec &#125; = require(&#39;child_process&#39;)exec(&#39;hexo server&#39;,(error, stdout, stderr) =&gt; &#123;        if(error)&#123;                console.log(&#39;exec error: $&#123;error&#125;&#39;)                return        &#125;        console.log(&#39;stdout: $&#123;stdout&#125;&#39;);        console.log(&#39;stderr: $&#123;stderr&#125;&#39;);&#125;)</code></pre><p>在根目录下运行脚本 </p><pre><code class="hljs">pm2 start hexo_run.js </code></pre><p>详解参考：<a href="https://blog.csdn.net/weixin_45019350/article/details/121901433">https://blog.csdn.net/weixin_45019350/article/details/121901433</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>捡起知识的第一天</title>
     <link href="/2022/09/25/%E6%8D%A1%E8%B5%B7%E7%9F%A5%E8%AF%86%E7%9A%84%E7%AC%AC%E4%B8%80%E5%A4%A9/"/>
     <url>/2022/09/25/%E6%8D%A1%E8%B5%B7%E7%9F%A5%E8%AF%86%E7%9A%84%E7%AC%AC%E4%B8%80%E5%A4%A9/</url>

@@ -16,21 +16,21 @@
   <meta name="author" content="Ming">
   <meta name="keywords" content="">
   
-    <meta name="description" content="明天也要早起！  今天完成的项目进度  前端管理页的基本布局及路由设置…">
+    <meta name="description" content="安装前提安装 Hexo 相当简单，只需要先安装下列应用程序即可： 1.Node.js (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)   2.Git    windows 安装较简单不过多叙述    Linux 命令安装 Node.js   apt-get update   sudo apt-get install nodejs    命令安装 Git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="捡起知识的第一天">
-<meta property="og:url" content="http://example.com/2022/09/25/%E6%8D%A1%E8%B5%B7%E7%9F%A5%E8%AF%86%E7%9A%84%E7%AC%AC%E4%B8%80%E5%A4%A9/index.html">
+<meta property="og:title" content="Hexo 搭建过程 Window &amp; Linux">
+<meta property="og:url" content="http://example.com/2022/09/25/Hexo-%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="明天也要早起！  今天完成的项目进度  前端管理页的基本布局及路由设置…">
+<meta property="og:description" content="安装前提安装 Hexo 相当简单，只需要先安装下列应用程序即可： 1.Node.js (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)   2.Git    windows 安装较简单不过多叙述    Linux 命令安装 Node.js   apt-get update   sudo apt-get install nodejs    命令安装 Git">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-25T10:14:00.000Z">
-<meta property="article:modified_time" content="2022-09-25T10:16:19.594Z">
+<meta property="article:published_time" content="2022-09-25T13:00:00.000Z">
+<meta property="article:modified_time" content="2022-09-25T14:50:12.210Z">
 <meta property="article:author" content="Ming">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>捡起知识的第一天 - 我的博客</title>
+  <title>Hexo 搭建过程 Window &amp; Linux - 我的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -195,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="捡起知识的第一天"></span>
+            <span id="subtitle" data-typed-text="Hexo 搭建过程 Window &amp; Linux"></span>
           
         </div>
 
@@ -206,7 +206,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-25 18:14" pubdate>
+        <time datetime="2022-09-25 21:00" pubdate>
           2022年9月25日 晚上
         </time>
       </span>
@@ -218,7 +218,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          32 字
+          912 字
         
       </span>
     
@@ -229,7 +229,7 @@
         
         
         
-          1 分钟
+          8 分钟
         
       </span>
     
@@ -267,16 +267,56 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">捡起知识的第一天</h1>
+            <h1 style="display: none">Hexo 搭建过程 Window &amp; Linux</h1>
             
             
               <div class="markdown-body">
                 
-                <p>明天也要早起！</p>
-<hr>
-<p>今天完成的项目进度</p>
-<hr>
-<p>前端管理页的基本布局及路由设置…</p>
+                <h5 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h5><p>安装 Hexo 相当简单，只需要先安装下列应用程序即可：</p>
+<pre><code class="hljs">1.Node.js (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本) 
+
+2.Git 
+  windows 安装较简单不过多叙述
+
+  Linux 命令安装 Node.js
+  apt-get update
+  sudo apt-get install nodejs
+
+  命令安装 Git
+  sudo apt-get install git
+</code></pre>
+<h5 id="Hexo添加hexo-admin组件"><a href="#Hexo添加hexo-admin组件" class="headerlink" title="Hexo添加hexo-admin组件"></a>Hexo添加hexo-admin组件</h5><pre><code class="hljs"> 插件安装
+ 首先进入hexo创建的博客项目的根目录下，执行
+ npm install --save hexo-admin
+
+运行下列命令启动 hexo server -d
+打开 http://localhost:4000/admin/ 就可以访问到hexo-admin管理页面了。 
+
+密码保护 打开setting，点击Setup authentification here输入用户名，密码，密钥，下面会自动生成配置文件，复制加在hexo根目录下的_config.yml中：
+
+admin:
+  username: ming
+  password_hash: .....
+  secret: ....
+</code></pre>
+<h5 id="Hexo-服务后台运行"><a href="#Hexo-服务后台运行" class="headerlink" title="Hexo 服务后台运行"></a>Hexo 服务后台运行</h5><p> 安装pm2 </p>
+<pre><code class="hljs">npm  install -g pm2 
+</code></pre>
+<p> 在博客根目录下面创建一个hexo_run.js </p>
+<pre><code class="hljs">const &#123; exec &#125; = require(&#39;child_process&#39;)
+exec(&#39;hexo server&#39;,(error, stdout, stderr) =&gt; &#123;
+        if(error)&#123;
+                console.log(&#39;exec error: $&#123;error&#125;&#39;)
+                return
+        &#125;
+        console.log(&#39;stdout: $&#123;stdout&#125;&#39;);
+        console.log(&#39;stderr: $&#123;stderr&#125;&#39;);
+&#125;)
+</code></pre>
+<p>在根目录下运行脚本 </p>
+<pre><code class="hljs">pm2 start hexo_run.js 
+</code></pre>
+<p>详解参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45019350/article/details/121901433">https://blog.csdn.net/weixin_45019350/article/details/121901433</a></p>
 
                 
               </div>
@@ -294,8 +334,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>捡起知识的第一天</div>
-      <div>http://example.com/2022/09/25/捡起知识的第一天/</div>
+      <div>Hexo 搭建过程 Window &amp; Linux</div>
+      <div>http://example.com/2022/09/25/Hexo-后台启动/</div>
     </div>
     <div class="license-meta">
       
@@ -339,9 +379,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/09/25/Hexo-%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8/" title="Hexo 搭建过程 Window &amp; Linux">
+                      <a href="/2022/09/26/WebFlux%E5%88%9D%E4%BD%93%E9%AA%8C/" title="WebFlux初体验">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hexo 搭建过程 Window &amp; Linux</span>
+                        <span class="hidden-mobile">WebFlux初体验</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -349,8 +389,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/09/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2022/09/25/%E6%8D%A1%E8%B5%B7%E7%9F%A5%E8%AF%86%E7%9A%84%E7%AC%AC%E4%B8%80%E5%A4%A9/" title="捡起知识的第一天">
+                        <span class="hidden-mobile">捡起知识的第一天</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
